@@ -86,6 +86,12 @@
     <Compile Include="GUI\FrmMain.Designer.cs">
       <DependentUpon>FrmMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="GUI\ucDsHocSinh.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\ucDsHocSinh.Designer.cs">
+      <DependentUpon>ucDsHocSinh.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI\ucDsGiaoVien.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -112,6 +118,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\FrmMain.resx">
       <DependentUpon>FrmMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\ucDsHocSinh.resx">
+      <DependentUpon>ucDsHocSinh.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\ucDsGiaoVien.resx">
       <DependentUpon>ucDsGiaoVien.cs</DependentUpon>

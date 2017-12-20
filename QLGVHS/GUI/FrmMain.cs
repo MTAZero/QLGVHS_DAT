@@ -32,5 +32,13 @@ namespace QLGVHS.GUI
             panelMain.Controls.Clear();
             panelMain.Controls.Add(uc);
         }
+
+        private void barHocSinh_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            ucDsHocSinh uc = new ucDsHocSinh();
+            uc.Dock = DockStyle.Fill;
+            panelMain.Controls.Clear();
+            panelMain.Controls.Add(uc);
+        }
     }
 }
