@@ -86,6 +86,13 @@ namespace QLGVHS.GUI
             LoadInitControl();
             LoadDgvHOCSINH();
             LockControl();
+
+            if (Helper.taikhoan.QUYEN == 0)
+            {
+                btnSua.Enabled = false;
+                btnXoa.Enabled = false;
+                btnThem.Enabled = false;
+            }
         }
         #endregion
 

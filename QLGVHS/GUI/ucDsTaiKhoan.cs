@@ -11,13 +11,13 @@ using QLGVHS.Data;
 
 namespace QLGVHS.GUI
 {
-    public partial class ucDsLop : UserControl
+    public partial class ucDsTaiKhoan : UserControl
     {
         private PC_Context db = Helper.db;
         private int index = 0, index1 = 0;
 
         #region Hàm khởi tạo
-        public ucDsLop()
+        public ucDsTaiKhoan()
         {
             InitializeComponent();
             Helper.Reload();
@@ -31,27 +31,27 @@ namespace QLGVHS.GUI
         {
             ClearControl();
         }
-        private void LoadDgvLOPHOC()
+        private void LoadDgvTAIKHOAN()
         {
             string keyWord = txtTimKiem.Text.ToUpper();
             int i = 0;
-            var listLOPHOC = db.LOPHOCs.ToList()
+            var listTAIKHOAN = db.TAIKHOANs.ToList()
                               .Select(p => new
                               {
                                   ID = p.ID,
                                   Ten = p.TEN,
-                                  SiSo = p.SISO
+                                  Quyen = (p.QUYEN == 1) ? "Quản trị" : "Nhân viên"
                               })
                               .ToList();
 
-            dgvLOPHOCMain.DataSource = listLOPHOC.ToList()
-                                         .Where(p => p.Ten.ToUpper().Contains(keyWord) || p.SiSo.ToString().ToUpper().Contains(keyWord))
+            dgvTAIKHOANMain.DataSource = listTAIKHOAN.ToList()
+                                         .Where(p => p.Ten.ToUpper().Contains(keyWord) || p.Quyen.ToUpper().Contains(keyWord))
                                          .Select(p => new
                                          {
                                              ID = p.ID,
                                              STT = ++i,
                                              Ten = p.Ten,
-                                             SiSo = p.SiSo
+                                             Quyen = p.Quyen
                                          }).ToList();
 
             UpdateDetail();
@@ -60,18 +60,18 @@ namespace QLGVHS.GUI
             try
             {
                 index = index1;
-                dgvLOPHOC.FocusedRowHandle = index;
-                dgvLOPHOCMain.Select();
+                dgvTAIKHOAN.FocusedRowHandle = index;
+                dgvTAIKHOANMain.Select();
             }
             catch
             {
 
             }
         }
-        private void ucDsLOPHOC_Load(object sender, EventArgs e)
+        private void ucDsTAIKHOAN_Load(object sender, EventArgs e)
         {
             LoadInitControl();
-            LoadDgvLOPHOC();
+            LoadDgvTAIKHOAN();
             LockControl();
 
             if (Helper.taikhoan.QUYEN == 0)
@@ -84,28 +84,30 @@ namespace QLGVHS.GUI
         #endregion
 
         #region Hàm chức năng
-        private LOPHOC getLOPHOCByID()
+        private TAIKHOAN getTAIKHOANByID()
         {
             try
             {
-                int id = (int)dgvLOPHOC.GetFocusedRowCellValue("ID");
-                LOPHOC ans = db.LOPHOCs.Where(p => p.ID == id).FirstOrDefault();
-                if (ans == null) return new LOPHOC();
+                int id = (int)dgvTAIKHOAN.GetFocusedRowCellValue("ID");
+                TAIKHOAN ans = db.TAIKHOANs.Where(p => p.ID == id).FirstOrDefault();
+                if (ans == null) return new TAIKHOAN();
                 return ans;
             }
             catch
             {
-                return new LOPHOC();
+                return new TAIKHOAN();
             }
         }
 
-        private LOPHOC getLOPHOCByForm()
+        private TAIKHOAN getTAIKHOANByForm()
         {
-            LOPHOC ans = new LOPHOC();
+            TAIKHOAN ans = new TAIKHOAN();
 
             try
             {
-                ans.TEN = txtTenLop.Text;
+                ans.TEN = txtTen.Text;
+                ans.QUYEN = cbxQuyen.SelectedIndex;
+                ans.MATKHAU = "1";
             }
             catch { }
 
@@ -114,20 +116,20 @@ namespace QLGVHS.GUI
 
         private void ClearControl()
         {
-            txtTenLop.Text = "";
+            txtTen.Text = "";
+            cbxQuyen.SelectedIndex = 0;
         }
 
         private void UpdateDetail()
         {
             try
             {
-                LOPHOC tg = getLOPHOCByID();
+                TAIKHOAN tg = getTAIKHOANByID();
 
                 if (tg.ID == 0) return;
 
-                txtTenLop.Text = tg.TEN;
-                txtSiSo.Text = tg.SISO.ToString();
-                
+                txtTen.Text = tg.TEN;
+                cbxQuyen.SelectedIndex = (int) tg.QUYEN;
             }
             catch
             {
@@ -137,10 +139,10 @@ namespace QLGVHS.GUI
 
         private void LockControl()
         {
-            txtTenLop.Enabled = false;
-            
+            txtTen.Enabled = false;
+            cbxQuyen.Enabled = false;
 
-            dgvLOPHOCMain.Enabled = true;
+            dgvTAIKHOANMain.Enabled = true;
             txtTimKiem.Enabled = true;
 
             btnThem.Enabled = true;
@@ -150,29 +152,30 @@ namespace QLGVHS.GUI
 
         private void UnlockControl()
         {
-            txtTenLop.Enabled = true;
-            
+            txtTen.Enabled = true;
+            cbxQuyen.Enabled = true;
 
-            dgvLOPHOCMain.Enabled = false;
+            dgvTAIKHOANMain.Enabled = false;
             txtTimKiem.Enabled = false;
         }
 
         private bool Check()
         {
-            if (txtTenLop.Text == "")
+            if (txtTen.Text == "")
             {
-                MessageBox.Show("Tên môn học không được để trống", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Tên đăng nhập không được để trống", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
+
             return true;
         }
 
         private bool CheckLuaChon()
         {
-            LOPHOC tg = getLOPHOCByID();
+            TAIKHOAN tg = getTAIKHOANByID();
             if (tg.ID == 0)
             {
-                MessageBox.Show("Chưa có môn học nào được chọn",
+                MessageBox.Show("Chưa có tài khoản nào được chọn",
                                 "Thông báo",
                                 MessageBoxButtons.OK,
                                 MessageBoxIcon.Error);
@@ -181,9 +184,10 @@ namespace QLGVHS.GUI
             return true;
         }
 
-        private void CapNhat(ref LOPHOC cu, LOPHOC moi)
+        private void CapNhat(ref TAIKHOAN cu, TAIKHOAN moi)
         {
             cu.TEN = moi.TEN;
+            cu.QUYEN = moi.QUYEN;
         }
         #endregion
 
@@ -211,25 +215,25 @@ namespace QLGVHS.GUI
                     btnXoa.Text = "Xóa";
                     LockControl();
 
-                    LOPHOC moi = getLOPHOCByForm();
-                    db.LOPHOCs.Add(moi);
+                    TAIKHOAN moi = getTAIKHOANByForm();
+                    db.TAIKHOANs.Add(moi);
 
                     try
                     {
                         db.SaveChanges();
-                        MessageBox.Show("Thêm thông tin môn học thành công",
+                        MessageBox.Show("Thêm thông tin tài khoản thành công",
                                         "Thông báo",
                                         MessageBoxButtons.OK,
                                         MessageBoxIcon.Information);
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show("Thêm thông tin môn học thất bại\n" + ex.Message,
+                        MessageBox.Show("Thêm thông tin tài khoản thất bại\n" + ex.Message,
                                         "Thông báo",
                                         MessageBoxButtons.OK,
                                         MessageBoxIcon.Error);
                     }
-                    LoadDgvLOPHOC();
+                    LoadDgvTAIKHOAN();
                 }
                 return;
             }
@@ -241,11 +245,23 @@ namespace QLGVHS.GUI
 
             if (btnSua.Text == "Sửa")
             {
+                TAIKHOAN z = getTAIKHOANByID();
+                if (z.QUYEN == 1)
+                {
+                    MessageBox.Show("Bạn không có quyền sửa tài khoản này",
+                                    "Thông báo",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Error);
+                    return;
+                }
+
                 btnSua.Text = "Lưu";
                 btnXoa.Text = "Hủy";
                 btnThem.Enabled = false;
 
                 UnlockControl();
+
+                txtTen.Enabled = false;
 
                 return;
             }
@@ -257,28 +273,29 @@ namespace QLGVHS.GUI
                     btnSua.Text = "Sửa";
                     btnXoa.Text = "Xóa";
 
+                    txtTen.Enabled = true;
                     LockControl();
 
-                    LOPHOC cu = getLOPHOCByID();
-                    LOPHOC moi = getLOPHOCByForm();
+                    TAIKHOAN cu = getTAIKHOANByID();
+                    TAIKHOAN moi = getTAIKHOANByForm();
                     CapNhat(ref cu, moi);
 
                     try
                     {
                         db.SaveChanges();
-                        MessageBox.Show("Sưa thông tin môn học thành công",
+                        MessageBox.Show("Sưa thông tin tài khoản thành công",
                                         "Thông báo",
                                         MessageBoxButtons.OK,
                                         MessageBoxIcon.Information);
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show("Sửa thông tin môn học thất bại\n" + ex.Message,
+                        MessageBox.Show("Sửa thông tin tài khoản thất bại\n" + ex.Message,
                                         "Thông báo",
                                         MessageBoxButtons.OK,
                                         MessageBoxIcon.Error);
                     }
-                    LoadDgvLOPHOC();
+                    LoadDgvTAIKHOAN();
                 }
 
                 return;
@@ -291,8 +308,18 @@ namespace QLGVHS.GUI
             {
                 if (!CheckLuaChon()) return;
 
-                LOPHOC cu = getLOPHOCByID();
-                DialogResult rs = MessageBox.Show("Bạn có chắc chắn xóa môn học " + cu.TEN + "?",
+                TAIKHOAN z = getTAIKHOANByID();
+                if (z.QUYEN == 1)
+                {
+                    MessageBox.Show("Bạn không có quyền xóa tài khoản này",
+                                    "Thông báo",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Error);
+                    return;
+                }
+
+                TAIKHOAN cu = getTAIKHOANByID();
+                DialogResult rs = MessageBox.Show("Bạn có chắc chắn xóa tài khoản " + cu.TEN + "?",
                                                   "Thông báo",
                                                   MessageBoxButtons.OKCancel,
                                                   MessageBoxIcon.Warning);
@@ -301,21 +328,21 @@ namespace QLGVHS.GUI
 
                 try
                 {
-                    db.LOPHOCs.Remove(cu);
+                    db.TAIKHOANs.Remove(cu);
                     db.SaveChanges();
-                    MessageBox.Show("Xóa thông tin môn học thành công",
+                    MessageBox.Show("Xóa thông tin tài khoản thành công",
                                     "Thông báo",
                                     MessageBoxButtons.OK,
                                     MessageBoxIcon.Information);
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Xóa thông tin môn học thất bại\n" + ex.Message,
+                    MessageBox.Show("Xóa thông tin tài khoản thất bại\n" + ex.Message,
                                     "Thông báo",
                                     MessageBoxButtons.OK,
                                     MessageBoxIcon.Error);
                 }
-                LoadDgvLOPHOC();
+                LoadDgvTAIKHOAN();
 
                 return;
             }
@@ -335,18 +362,18 @@ namespace QLGVHS.GUI
         #region Sự kiện ngầm
         private void txtTimKiem_TextChanged(object sender, EventArgs e)
         {
-            LoadDgvLOPHOC();
+            LoadDgvTAIKHOAN();
             txtTimKiem.Focus();
         }
 
-        private void dgvLOPHOC_FocusedRowChanged(object sender, DevExpress.XtraGrid.Views.Base.FocusedRowChangedEventArgs e)
+        private void dgvMONHOC_FocusedRowChanged(object sender, DevExpress.XtraGrid.Views.Base.FocusedRowChangedEventArgs e)
         {
             UpdateDetail();
 
             try
             {
                 index1 = index;
-                index = dgvLOPHOC.FocusedRowHandle;
+                index = dgvTAIKHOAN.FocusedRowHandle;
             }
             catch { }
         }

@@ -74,6 +74,12 @@
     <Compile Include="Data\PC_Context.cs" />
     <Compile Include="Data\PHANCONG.cs" />
     <Compile Include="Data\TAIKHOAN.cs" />
+    <Compile Include="GUI\FrmDoiMatKhau.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\FrmDoiMatKhau.Designer.cs">
+      <DependentUpon>FrmDoiMatKhau.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI\FrmLogin.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -104,6 +110,12 @@
     <Compile Include="GUI\ucDsLop.Designer.cs">
       <DependentUpon>ucDsLop.cs</DependentUpon>
     </Compile>
+    <Compile Include="GUI\ucDsTaiKhoan.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\ucDsTaiKhoan.Designer.cs">
+      <DependentUpon>ucDsTaiKhoan.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI\ucDsMonHoc.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -119,6 +131,9 @@
     <Compile Include="Helper.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="GUI\FrmDoiMatKhau.resx">
+      <DependentUpon>FrmDoiMatKhau.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GUI\FrmLogin.resx">
       <DependentUpon>FrmLogin.cs</DependentUpon>
     </EmbeddedResource>
@@ -133,6 +148,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\ucDsLop.resx">
       <DependentUpon>ucDsLop.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\ucDsTaiKhoan.resx">
+      <DependentUpon>ucDsTaiKhoan.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\ucDsMonHoc.resx">
       <DependentUpon>ucDsMonHoc.cs</DependentUpon>
@@ -168,7 +186,9 @@
   <ItemGroup>
     <None Include="Resources\Le_Quy_Don_Technical_University_logo.jpg" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <TypeScriptCompile Include="db.ts" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

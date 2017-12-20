@@ -48,5 +48,36 @@ namespace QLGVHS.GUI
             panelMain.Controls.Clear();
             panelMain.Controls.Add(uc);
         }
+
+        private void barPhanCong_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            ucPhanCongGiangDay uc = new ucPhanCongGiangDay();
+            uc.Dock = DockStyle.Fill;
+            panelMain.Controls.Clear();
+            panelMain.Controls.Add(uc);
+        }
+
+        private void barDangXuat_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            DialogResult rs = MessageBox.Show("Bạn có chắc chắn đăng xuất không?", "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Error);
+
+            if (rs == DialogResult.Cancel) return;
+
+            this.Close();
+        }
+
+        private void barDoiMatKhau_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            FrmDoiMatKhau form = new FrmDoiMatKhau();
+            form.ShowDialog();
+        }
+
+        private void barTaiKhoan_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            ucDsTaiKhoan uc = new ucDsTaiKhoan();
+            uc.Dock = DockStyle.Fill;
+            panelMain.Controls.Clear();
+            panelMain.Controls.Add(uc);
+        }
     }
 }

@@ -40,6 +40,7 @@
             this.barPhanCong = new DevExpress.XtraBars.BarButtonItem();
             this.barDoiMatKhau = new DevExpress.XtraBars.BarButtonItem();
             this.barDangXuat = new DevExpress.XtraBars.BarButtonItem();
+            this.barTaiKhoan = new DevExpress.XtraBars.BarButtonItem();
             this.ribbonPage1 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageQuanTri = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroup2 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
@@ -80,9 +81,10 @@
             this.barLopHoc,
             this.barPhanCong,
             this.barDoiMatKhau,
-            this.barDangXuat});
+            this.barDangXuat,
+            this.barTaiKhoan});
             this.ribbonControl1.Location = new System.Drawing.Point(0, 0);
-            this.ribbonControl1.MaxItemId = 8;
+            this.ribbonControl1.MaxItemId = 9;
             this.ribbonControl1.Name = "ribbonControl1";
             this.ribbonControl1.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPage1});
@@ -131,6 +133,7 @@
             this.barPhanCong.Id = 5;
             this.barPhanCong.Name = "barPhanCong";
             this.barPhanCong.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
+            this.barPhanCong.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barPhanCong_ItemClick);
             // 
             // barDoiMatKhau
             // 
@@ -139,6 +142,7 @@
             this.barDoiMatKhau.Id = 6;
             this.barDoiMatKhau.Name = "barDoiMatKhau";
             this.barDoiMatKhau.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
+            this.barDoiMatKhau.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barDoiMatKhau_ItemClick);
             // 
             // barDangXuat
             // 
@@ -147,6 +151,16 @@
             this.barDangXuat.Id = 7;
             this.barDangXuat.Name = "barDangXuat";
             this.barDangXuat.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
+            this.barDangXuat.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barDangXuat_ItemClick);
+            // 
+            // barTaiKhoan
+            // 
+            this.barTaiKhoan.Caption = "Tài khoản";
+            this.barTaiKhoan.Glyph = ((System.Drawing.Image)(resources.GetObject("barTaiKhoan.Glyph")));
+            this.barTaiKhoan.Id = 8;
+            this.barTaiKhoan.Name = "barTaiKhoan";
+            this.barTaiKhoan.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
+            this.barTaiKhoan.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barTaiKhoan_ItemClick);
             // 
             // ribbonPage1
             // 
@@ -163,6 +177,7 @@
             this.ribbonPageQuanTri.ItemLinks.Add(this.barMonHoc);
             this.ribbonPageQuanTri.ItemLinks.Add(this.barLopHoc);
             this.ribbonPageQuanTri.ItemLinks.Add(this.barPhanCong);
+            this.ribbonPageQuanTri.ItemLinks.Add(this.barTaiKhoan);
             this.ribbonPageQuanTri.Name = "ribbonPageQuanTri";
             this.ribbonPageQuanTri.Text = "Quản trị";
             // 
@@ -210,5 +225,6 @@
         private DevExpress.XtraBars.BarButtonItem barDangXuat;
         private DevExpress.LookAndFeel.DefaultLookAndFeel defaultLookAndFeel1;
         private System.Windows.Forms.Panel panelMain;
+        private DevExpress.XtraBars.BarButtonItem barTaiKhoan;
     }
 }
