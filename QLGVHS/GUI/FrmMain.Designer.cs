@@ -122,6 +122,7 @@
             this.barLopHoc.Id = 4;
             this.barLopHoc.Name = "barLopHoc";
             this.barLopHoc.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
+            this.barLopHoc.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barLopHoc_ItemClick);
             // 
             // barPhanCong
             // 

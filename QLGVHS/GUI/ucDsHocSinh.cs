@@ -282,6 +282,8 @@ namespace QLGVHS.GUI
 
                     try
                     {
+                        LOPHOC lop = db.LOPHOCs.Where(p => p.ID == moi.LOPHOCID).FirstOrDefault();
+                        lop.SISO++;
                         db.SaveChanges();
                         MessageBox.Show("Thêm thông tin học sinh thành công",
                                         "Thông báo",
@@ -327,6 +329,12 @@ namespace QLGVHS.GUI
 
                     HOCSINH cu = getHOCSINHByID();
                     HOCSINH moi = getHOCSINHByForm();
+
+                    LOPHOC lop = db.LOPHOCs.Where(p => p.ID == moi.LOPHOCID).FirstOrDefault();
+                    lop.SISO++;
+                    LOPHOC lop1 = db.LOPHOCs.Where(p => p.ID == cu.LOPHOCID).FirstOrDefault();
+                    lop1.SISO--;
+
                     CapNhat(ref cu, moi);
 
                     try
@@ -367,6 +375,9 @@ namespace QLGVHS.GUI
 
                 try
                 {
+                    
+                    LOPHOC lop = db.LOPHOCs.Where(p => p.ID == cu.LOPHOCID).FirstOrDefault();
+                    lop.SISO--;
                     db.HOCSINHs.Remove(cu);
                     db.SaveChanges();
                     MessageBox.Show("Xóa thông tin học sinh thành công",

@@ -98,6 +98,12 @@
     <Compile Include="GUI\ucDsGiaoVien.Designer.cs">
       <DependentUpon>ucDsGiaoVien.cs</DependentUpon>
     </Compile>
+    <Compile Include="GUI\ucDsLop.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\ucDsLop.Designer.cs">
+      <DependentUpon>ucDsLop.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI\ucDsMonHoc.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -124,6 +130,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\ucDsGiaoVien.resx">
       <DependentUpon>ucDsGiaoVien.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\ucDsLop.resx">
+      <DependentUpon>ucDsLop.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\ucDsMonHoc.resx">
       <DependentUpon>ucDsMonHoc.cs</DependentUpon>
